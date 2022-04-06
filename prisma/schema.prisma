@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model asset {
+  assetid      String      @id @db.Uuid
+  name         String      @db.VarChar(50)
+  abbreviation String      @db.VarChar(10)
+  sector       String?     @db.VarChar(50)
+  subsector    String?     @db.VarChar(50)
+  operation    operation[]
+}
+
+model operation {
+  operationid      String   @id @db.Uuid
+  date             DateTime @db.Date
+  assetid          String   @db.Uuid
+  quantity         Float
+  tax              Float
+  price            Float
+  type             String   @db.VarChar(20)
+  value            Float
+  investmentbroker String   @db.VarChar(50)
+  currency         String   @db.VarChar(20)
+  walletid         String   @db.Uuid
+  asset            asset    @relation(fields: [assetid], references: [assetid], onDelete: NoAction, onUpdate: NoAction)
+  wallet           wallet   @relation(fields: [walletid], references: [walletid], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model user {
+  userid     String   @id @db.Uuid
+  firstname  String   @db.VarChar(50)
+  lastname   String   @db.VarChar(50)
+  email      String   @unique @db.VarChar(50)
+  cellphone  String   @unique @db.VarChar(15)
+  password   String   @db.VarChar(50)
+  birthdate  DateTime @db.Date
+  address    String   @db.VarChar(50)
+  city       String   @db.VarChar(50)
+  postalcode String   @db.VarChar(50)
+  country    String   @db.VarChar(50)
+  state      String   @db.VarChar(50)
+  cpf        String   @unique @db.VarChar(15)
+  wallet     wallet[]
+}
+
+model wallet {
+  walletid        String      @id @db.Uuid
+  investmentvalue Float
+  actualvalue     Float
+  totalearnings   Float
+  userid          String      @db.Uuid
+  user            user        @relation(fields: [userid], references: [userid], onDelete: NoAction, onUpdate: NoAction)
+  operation       operation[]
+}
