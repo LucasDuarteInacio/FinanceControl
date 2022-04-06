@@ -1,22 +1,32 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { user } from '@prisma/client';
+import { UserDTO } from './DTO/userDTO.model';
 //import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 
-//@ApiTags('Usuarios')
+@ApiTags('Users')
 @Controller('users')
 export class UserController {
-    constructor(private userService:UserService) {}
+    constructor(private userService: UserService) { }
 
-    // @Get(':login')
-    // @ApiOperation({ summary: 'Busca uma usuário por login' })
-    // @ApiResponse({ status: 404, description: 'Usuário não encontrado' })
-    // findById(@Param('login') login: string): Promise<mnt_usuario> {
-    //     return this.usuarioService.findByLogin(login);
-    // }
+    @Get(':id')
+    @ApiOperation({ summary: 'Search user by id' })
+    @ApiResponse({ status: 404, description: 'Did not find user with the informed is' })
+    findById(@Param('id') id: string): Promise<user> {
+        return this.userService.findById(id);
+    }
 
     @Get()
-    findAll():Promise<user[]>{
+    @ApiOperation({ summary: 'Search all database users' })
+    findAll(): Promise<user[]> {
         return this.userService.findAll();
+    }
+
+    @Post()
+    @ApiOperation({ summary: 'Register new user' })
+    @ApiResponse({ status: 409, description: 'There is already a user with the CPF, CellPhone or Email provided' })
+    newUser(@Body() user: UserDTO): Promise<user> {
+        return this.userService.newUser(user);
     }
 }
