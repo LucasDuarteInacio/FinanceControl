@@ -2,6 +2,7 @@
 
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { user } from '@prisma/client';
+import { ValidCpf } from 'src/Decorators/validCpf.decorator';
 import { UserDTO } from './DTO/userDTO.model';
 import { UserRepository } from './user.repository';
 
@@ -24,14 +25,21 @@ export class UserService {
         return this.userRepository.findAll();
     }
 
+   
     async newUser(user: UserDTO): Promise<user> {
+
+
         const cpf = await this.userRepository.findBy('cpf',user.cpf);
         const email = await this.userRepository.findBy('email',user.email);
         const cellphone = await this.userRepository.findBy('cellphone',user.cellphone);
+
         if (cpf || email || cellphone) {
             throw new HttpException(`Usuario ja existe`, HttpStatus.CONFLICT);
         }
         return this.userRepository.save(user);
 
     }
+
+
+  
 }
