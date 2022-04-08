@@ -2,14 +2,18 @@
 
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { user } from '@prisma/client';
-import { ValidCpf } from 'src/Decorators/validCpf.decorator';
-import { UserDTO } from './DTO/userDTO.model';
+import { WalletRequestDTO } from '../wallet/DTO/walletRequestDTO.model';
+import { WalletService } from '../wallet/wallet.service';
+import { UserRequestDTO } from './DTO/userRequestDTO.model';
 import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
 
-    constructor(private userRepository: UserRepository) { }
+    constructor(
+        private userRepository: UserRepository,
+        private walletService: WalletService
+        ) { }
 
 
     async findById(id: string): Promise<user> {
@@ -26,8 +30,8 @@ export class UserService {
     }
 
    
-    async newUser(user: UserDTO): Promise<user> {
-
+    async newUser(user: UserRequestDTO): Promise<user> {
+        let userCreated
 
         const cpf = await this.userRepository.findBy('cpf',user.cpf);
         const email = await this.userRepository.findBy('email',user.email);
@@ -36,7 +40,17 @@ export class UserService {
         if (cpf || email || cellphone) {
             throw new HttpException(`Usuario ja existe`, HttpStatus.CONFLICT);
         }
-        return this.userRepository.save(user);
+      
+        try {
+            userCreated = await this.userRepository.save(user);
+            const wallet = new WalletRequestDTO(0,0,0,userCreated.userid);
+            await this.walletService.newWallet(wallet)
+        } catch (error) {
+            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+      
+
+        return userCreated;
 
     }
 

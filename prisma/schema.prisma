@@ -9,8 +9,8 @@ datasource db {
 
 model asset {
   assetid      String      @id @db.Uuid
-  name         String      @db.VarChar(50)
-  abbreviation String      @db.VarChar(10)
+  name         String      @unique @db.VarChar(50)
+  abbreviation String      @unique @db.VarChar(10)
   sector       String?     @db.VarChar(50)
   subsector    String?     @db.VarChar(50)
   operation    operation[]
@@ -18,8 +18,9 @@ model asset {
 
 model operation {
   operationid      String   @id @db.Uuid
-  date             DateTime @db.Date
+  walletid         String   @db.Uuid
   assetid          String   @db.Uuid
+  date             DateTime @db.Date
   quantity         Float
   tax              Float
   price            Float
@@ -27,7 +28,6 @@ model operation {
   value            Float
   investmentbroker String   @db.VarChar(50)
   currency         String   @db.VarChar(20)
-  walletid         String   @db.Uuid
   asset            asset    @relation(fields: [assetid], references: [assetid], onDelete: NoAction, onUpdate: NoAction)
   wallet           wallet   @relation(fields: [walletid], references: [walletid], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -51,10 +51,10 @@ model user {
 
 model wallet {
   walletid        String      @id @db.Uuid
+  userid          String      @db.Uuid
   investmentvalue Float
   actualvalue     Float
   totalearnings   Float
-  userid          String      @db.Uuid
   user            user        @relation(fields: [userid], references: [userid], onDelete: NoAction, onUpdate: NoAction)
   operation       operation[]
 }

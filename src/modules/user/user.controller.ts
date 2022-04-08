@@ -1,9 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { user } from '@prisma/client';
-import { Validate, validate, validateOrReject, Validator } from 'class-validator';
 import { ValidCpf } from 'src/Decorators/validCpf.decorator';
-import { UserDTO } from './DTO/userDTO.model';
+import { UserRequestDTO } from './DTO/userRequestDTO.model';
 import { UserService } from './user.service';
 
 @ApiTags('Users')
@@ -28,14 +27,9 @@ export class UserController {
     @ApiOperation({ summary: 'Register new user' })
     @ApiResponse({ status: 400, description: 'Invalid request data' })
     @ApiResponse({ status: 409, description: 'There is already a user with the CPF, CellPhone or Email provided' })
-    newUser(@Body() @ValidCpf() user: UserDTO): Promise<user> {
-
-
-
+    newUser(@Body() @ValidCpf() user: UserRequestDTO): Promise<user> {
         return this.userService.newUser(user);
     }
-
-
 
 
 }

@@ -3,7 +3,6 @@ import { createParamDecorator, ExecutionContext, HttpException, HttpStatus } fro
 export const ValidCpf = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    console.log(request.body.cpf)
     
       let Soma = 0;
       let Resto;
