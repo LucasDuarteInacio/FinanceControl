@@ -1,48 +1,53 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty,IsDate, } from "class-validator";
-import { WalletDTO } from "src/modules/wallet/DTO/walletDTO.model";
+export class UserDTO {
+  firstname: string;
 
-export class UserDTO { 
+  lastname: string;
 
+  email: string;
 
-	firstname: string;
+  cellphone: string;
 
-	lastname: string;
+  password: string;
 
-	email: string;
+  birthdate: Date;
 
-	cellphone: string;
+  address: string;
 
-	password: string;
+  city: string;
 
-	birthdate: Date;
+  postalcode: string;
 
-	address: string;
+  country: string;
 
-	city: string;
+  state: string;
 
-	postalcode: string;
+  cpf: string;
 
-	country: string;
-
-	state: string;
-
-	cpf: string;
-    
-
-    constructor(firstname, lastname, email, cellphone, password, birthdate, address,city,postalcode,country,state,cpf) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.cellphone = cellphone;
-        this.password = password;
-        this.birthdate = birthdate;
-        this.address = address;
-        this.city = city;
-        this.postalcode = postalcode;
-        this.country = country;
-        this.state = state;
-        this.cpf = cpf;
-    }
-    
+  constructor(
+    firstname,
+    lastname,
+    email,
+    cellphone,
+    password,
+    birthdate,
+    address,
+    city,
+    postalcode,
+    country,
+    state,
+    cpf,
+  ) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.email = email;
+    this.cellphone = cellphone;
+    this.password = password;
+    this.birthdate = birthdate;
+    this.address = address;
+    this.city = city;
+    this.postalcode = postalcode;
+    this.country = country;
+    this.state = state;
+    this.cpf = cpf;
+  }
 }

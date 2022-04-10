@@ -1,24 +1,21 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export class AssetDTO {
+  assetid: uuidv4;
 
+  name: string;
 
-    assetid: uuidv4;
+  abbreviation: string;
 
-    name: string;
+  sector: string;
 
-    abbreviation: string;
+  subsector: string;
 
-    sector: string;
-
-    subsector: string
-
-    constructor(assetid, name, abbreviation, sector, subsector) {
-        this.assetid = assetid;
-        this.name = name;
-        this.abbreviation = abbreviation;
-        this.sector = sector;
-        this.subsector = subsector;
-    }
-
+  constructor(assetid, name, abbreviation, sector, subsector) {
+    this.assetid = assetid;
+    this.name = name;
+    this.abbreviation = abbreviation;
+    this.sector = sector;
+    this.subsector = subsector;
+  }
 }
