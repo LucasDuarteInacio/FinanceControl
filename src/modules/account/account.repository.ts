@@ -1,44 +1,44 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { user } from '@prisma/client';
+import { account } from '@prisma/client';
 import { PrismaService } from 'src/shared/prisma.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class UserRepository {
+export class AccountRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findById(userid: string): Promise<user> {
-    return this.prisma.user.findUnique({
+  async findById(accountid: string): Promise<account> {
+    return this.prisma.account.findUnique({
       where: {
-        userid,
+        accountid,
       },
     });
   }
 
-  async findByCpf(cpf: string): Promise<user> {
-    return this.prisma.user.findUnique({
+  async findByCpf(cpf: string): Promise<account> {
+    return this.prisma.account.findUnique({
       where: {
         cpf,
       },
     });
   }
 
-  async findBy(key: string, value: string): Promise<user> {
+  async findBy(key: string, value: string): Promise<account> {
     switch (key) {
       case 'cpf':
-        return this.prisma.user.findFirst({
+        return this.prisma.account.findFirst({
           where: {
             cpf: value,
           },
         });
       case 'email':
-        return this.prisma.user.findFirst({
+        return this.prisma.account.findFirst({
           where: {
             email: value,
           },
         });
       case 'cellphone':
-        return this.prisma.user.findFirst({
+        return this.prisma.account.findFirst({
           where: {
             cellphone: value,
           },
@@ -49,13 +49,13 @@ export class UserRepository {
     }
   }
 
-  async findAll(): Promise<user[]> {
-    return this.prisma.user.findMany();
+  async findAll(): Promise<account[]> {
+    return this.prisma.account.findMany();
   }
 
-  async save(data: any): Promise<user> {
-    data.userid = uuidv4();
-    return this.prisma.user.create({
+  async save(data: any): Promise<account> {
+    data.accountid = uuidv4();
+    return this.prisma.account.create({
       data: data,
     });
   }

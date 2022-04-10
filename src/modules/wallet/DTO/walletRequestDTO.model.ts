@@ -7,12 +7,12 @@ export class WalletRequestDTO {
 
   totalearnings: number;
 
-  userid: uuidv4;
+  accountid: uuidv4;
 
-  constructor(investmentvalue, actualvalue, totalearnings, userid) {
+  constructor(investmentvalue, actualvalue, totalearnings, accountid) {
     this.investmentvalue = investmentvalue;
     this.actualvalue = actualvalue;
     this.totalearnings = totalearnings;
-    this.userid = userid;
+    this.accountid = accountid;
   }
 }

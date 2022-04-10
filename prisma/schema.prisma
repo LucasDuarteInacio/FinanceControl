@@ -32,12 +32,22 @@ model operation {
   wallet           wallet   @relation(fields: [walletid], references: [walletid], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model user {
-  userid     String   @id @db.Uuid
+model wallet {
+  walletid        String      @id @db.Uuid
+  accountid       String      @db.Uuid
+  investmentvalue Float
+  actualvalue     Float
+  totalearnings   Float
+  account         account     @relation(fields: [accountid], references: [accountid], onDelete: NoAction, onUpdate: NoAction)
+  operation       operation[]
+}
+
+model account {
+  accountid  String   @id(map: "account_pkey") @db.Uuid
   firstname  String   @db.VarChar(50)
   lastname   String   @db.VarChar(50)
-  email      String   @unique @db.VarChar(50)
-  cellphone  String   @unique @db.VarChar(15)
+  email      String   @unique(map: "account_email_key") @db.VarChar(50)
+  cellphone  String   @unique(map: "accoun_cellphone_key") @db.VarChar(15)
   password   String   @db.VarChar(50)
   birthdate  DateTime @db.Date
   address    String   @db.VarChar(50)
@@ -45,16 +55,6 @@ model user {
   postalcode String   @db.VarChar(50)
   country    String   @db.VarChar(50)
   state      String   @db.VarChar(50)
-  cpf        String   @unique @db.VarChar(15)
+  cpf        String   @unique(map: "accoun_cpf_key") @db.VarChar(15)
   wallet     wallet[]
-}
-
-model wallet {
-  walletid        String      @id @db.Uuid
-  userid          String      @db.Uuid
-  investmentvalue Float
-  actualvalue     Float
-  totalearnings   Float
-  user            user        @relation(fields: [userid], references: [userid], onDelete: NoAction, onUpdate: NoAction)
-  operation       operation[]
 }

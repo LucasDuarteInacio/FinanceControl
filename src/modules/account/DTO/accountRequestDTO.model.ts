@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
-export class UserRequestDTO {
+export class AccountRequestDTO {
   @IsNotEmpty({ message: 'Campo nome nao pode ser vazio' })
   @ApiProperty({ example: 'Lucas', description: 'First username' })
   firstname: string;
@@ -10,43 +10,46 @@ export class UserRequestDTO {
   @ApiProperty({ example: 'Duarte', description: 'Last username' })
   lastname: string;
 
+  @IsEmail({}, { message: 'Formato email incorreto' })
   @IsNotEmpty({ message: 'Campo email nao pode ser vazio' })
-  @ApiProperty({ example: 'lucasduarte@email.com', description: 'User email' })
+  @ApiProperty({
+    example: 'lucasduarte@email.com',
+    description: 'Account email',
+  })
   email: string;
 
   @IsNotEmpty({ message: 'Campo Telefone nao pode ser vazio' })
-  @ApiProperty({ example: '31999999999', description: 'User cell phone' })
+  @ApiProperty({ example: '31999999999', description: 'Account cell phone' })
   cellphone: string;
 
   @IsNotEmpty({ message: 'Campo senha nao pode ser vazio' })
-  @ApiProperty({ example: 'password', description: 'User password' })
+  @ApiProperty({ example: 'password', description: 'Account password' })
   password: string;
 
   @IsNotEmpty({ message: 'Campo data aniversario nao pode ser vazio' })
   @ApiProperty({
     example: '2022-04-14T00:00:00.000Z',
-    description: 'User birthday',
+    description: 'Account birthday',
   })
   birthdate: Date;
 
-  @IsEmail({}, { message: 'Formato email incorreto' })
-  @ApiProperty({ example: 'Rua hum', description: 'User  address' })
+  @ApiProperty({ example: 'Rua hum', description: 'Account  address' })
   address: string;
 
-  @ApiProperty({ example: 'Betim', description: 'User city' })
+  @ApiProperty({ example: 'Betim', description: 'Account city' })
   city: string;
 
-  @ApiProperty({ example: '32671199', description: 'User postal code' })
+  @ApiProperty({ example: '32671199', description: 'Account postal code' })
   postalcode: string;
 
-  @ApiProperty({ example: 'brasil', description: 'User country' })
+  @ApiProperty({ example: 'brasil', description: 'Account country' })
   country: string;
 
-  @ApiProperty({ example: 'Minas Gerais', description: 'User state' })
+  @ApiProperty({ example: 'Minas Gerais', description: 'Account state' })
   state: string;
 
   @IsNotEmpty({ message: 'Campo cpf nao pode ser vazio' })
-  @ApiProperty({ example: '37271448071', description: 'User cpf' })
+  @ApiProperty({ example: '37271448071', description: 'Account cpf' })
   cpf: string;
 
   constructor(
