@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { asset, wallet } from '@prisma/client';
+import { asset } from '@prisma/client';
 import { AssetService } from './asset.service';
 import { AssetRequestDTO } from './DTO/assetRequestDTO.model';
 
@@ -28,7 +28,21 @@ export class AssetController {
   @Post()
   @ApiOperation({ summary: 'Register new asset' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
-  newUser(@Body() asset: AssetRequestDTO): Promise<asset> {
+  newAsset(@Body() asset: AssetRequestDTO): Promise<asset> {
     return this.assetService.newAsset(asset);
+  }
+
+  @Put()
+  @ApiOperation({ summary: 'Update account' })
+  @ApiResponse({ status: 400, description: 'Invalid request data' })
+  updateAsset(@Body() asset: AssetRequestDTO, @Query('assetId') assetId: string): Promise<asset> {
+    return this.assetService.updateAsset(assetId, asset);
+  }
+
+  @Delete()
+  @ApiOperation({ summary: 'Delete account' })
+  @ApiResponse({ status: 404, description: 'accountId does not exist' })
+  deleteAsset(@Query('assetId') assetId: string): Promise<asset> {
+    return this.assetService.deleteAsset(assetId);
   }
 }

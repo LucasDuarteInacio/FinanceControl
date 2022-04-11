@@ -2,7 +2,6 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OperationService } from './operation.service';
 import { OperationRequestDTO } from './DTO/operationRequestDTO.model';
-import { OperationDTO } from './DTO/operationDTO.model';
 import { operation } from '@prisma/client';
 
 @ApiTags('Operations')

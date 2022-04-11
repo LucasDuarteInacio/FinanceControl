@@ -14,8 +14,18 @@ export class AssetService {
     if (name || abbreviation) {
       throw new HttpException(`Ativo ja existe`, HttpStatus.CONFLICT);
     }
-
     return this.assetRepository.save(asset);
+  }
+
+  async deleteAsset(assetId): Promise<asset> {
+    await this.findById(assetId);
+    return this.assetRepository.delete(assetId);
+  }
+
+  async updateAsset(assetId, asset): Promise<asset> {
+    await this.findById(assetId);
+    asset.assetid = assetId;
+    return this.assetRepository.update(asset);
   }
 
   async findById(id: string): Promise<asset> {

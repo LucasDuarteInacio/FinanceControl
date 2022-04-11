@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber } from 'class-validator';
-import { v4 as uuidv4 } from 'uuid';
 import { currencyEnumArray } from '../enum/currency.enum';
 import { typeEnumArray } from '../enum/type.enum';
 

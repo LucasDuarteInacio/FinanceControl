@@ -4,7 +4,6 @@ import { WalletRequestDTO } from '../wallet/DTO/walletRequestDTO.model';
 import { WalletService } from '../wallet/wallet.service';
 import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
 import { AccountRepository } from './account.repository';
-import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
 
 @Injectable()
 export class AccountService {

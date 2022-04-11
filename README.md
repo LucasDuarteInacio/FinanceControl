@@ -1,12 +1,12 @@
-<p align="center">
+<p style="text-align:center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">Projeto desenvolvido para a materia de Plataforma Node.JS do curso de Pós-Graduação Arquitetura de Software Distribuído</p>
-    <p align="center">
+  <p style="text-align:center">Projeto desenvolvido para a materia de Plataforma Node.JS do curso de Pós-Graduação Arquitetura de Software Distribuído</p>
+    <p style="text-align:center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
@@ -57,8 +57,9 @@ $ npm run test:cov
 - Ativo
   - Criar ativos
   - Listar ativos
-  - Editar ativos*
-  - Deletar ativos*
+  - Editar ativos
+  - Deletar ativos
+  - Buscar ativo por id
 
 - Operações
   - Realizar operações

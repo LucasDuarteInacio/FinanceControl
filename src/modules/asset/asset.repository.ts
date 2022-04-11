@@ -14,6 +14,23 @@ export class AssetRepository {
     });
   }
 
+  async update(data): Promise<asset> {
+    return this.prisma.asset.update({
+      where: {
+        assetid: data.assetid,
+      },
+      data: data,
+    });
+  }
+
+  async delete(assetid): Promise<asset> {
+    return this.prisma.asset.delete({
+      where: {
+        assetid,
+      },
+    });
+  }
+
   async findById(assetid: string): Promise<asset> {
     return await this.prisma.asset.findUnique({
       where: {
