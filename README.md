@@ -18,20 +18,18 @@ Serviço de gerenciamento de investimentos.
 ## Instalação
 
 ```bash
+# Instalando dependencias do projeto
 $ npm install
+
+# Conectando prisma ao projeto
+$ npx prisma generate
 ```
 
 ## Rodando o APP
 
 ```bash
-# development
-$ npm run start
-
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -51,9 +49,10 @@ $ npm run test:cov
 
 - Conta
   - Criar contas
-  - Editar contas*
-  - Deletar contas*
+  - Editar contas
+  - Deletar contas
   - Listar contas
+  - Buscar conta por id
 
 - Ativo
   - Criar ativos

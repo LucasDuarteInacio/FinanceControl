@@ -38,15 +38,15 @@ model wallet {
   investmentvalue Float
   actualvalue     Float
   totalearnings   Float
-  account         account     @relation(fields: [accountid], references: [accountid], onDelete: NoAction, onUpdate: NoAction)
+  account         account     @relation(fields: [accountid], references: [accountid], onDelete: Cascade)
   operation       operation[]
 }
 
 model account {
-  accountid  String   @id(map: "account_pkey") @db.Uuid
+  accountid  String   @id @db.Uuid
   firstname  String   @db.VarChar(50)
   lastname   String   @db.VarChar(50)
-  email      String   @unique(map: "account_email_key") @db.VarChar(50)
+  email      String   @unique @db.VarChar(50)
   cellphone  String   @unique(map: "accoun_cellphone_key") @db.VarChar(15)
   password   String   @db.VarChar(50)
   birthdate  DateTime @db.Date

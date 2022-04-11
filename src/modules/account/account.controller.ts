@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { account } from '@prisma/client';
 import { ValidCpf } from 'src/Decorators/validCpf.decorator';
 import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
 import { AccountService } from './account.service';
+import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
 
 @ApiTags('AccountS')
 @Controller('accounts')
@@ -31,10 +32,23 @@ export class AccountController {
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   @ApiResponse({
     status: 409,
-    description:
-      'There is already a account with the CPF, CellPhone or Email provided',
+    description: 'There is already a account with the CPF, CellPhone or Email provided',
   })
   newAccount(@Body() @ValidCpf() account: AccountRequestDTO): Promise<account> {
     return this.accountService.newAccount(account);
+  }
+
+  @Put()
+  @ApiOperation({ summary: 'Update account' })
+  @ApiResponse({ status: 400, description: 'Invalid request data' })
+  updateAccount(@Body() account: AccountUpdateDTO, @Query('accountId') accountId: string): Promise<account> {
+    return this.accountService.updateAccount(accountId, account);
+  }
+
+  @Delete()
+  @ApiOperation({ summary: 'Delete account' })
+  @ApiResponse({ status: 404, description: 'accountId does not exist' })
+  deleteAccount(@Query('accountId') accountId: string): Promise<account> {
+    return this.accountService.deleteAccount(accountId);
   }
 }

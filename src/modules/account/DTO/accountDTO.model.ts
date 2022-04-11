@@ -23,20 +23,7 @@ export class UserDTO {
 
   cpf: string;
 
-  constructor(
-    firstname,
-    lastname,
-    email,
-    cellphone,
-    password,
-    birthdate,
-    address,
-    city,
-    postalcode,
-    country,
-    state,
-    cpf,
-  ) {
+  constructor(firstname, lastname, email, cellphone, password, birthdate, address, city, postalcode, country, state, cpf) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;

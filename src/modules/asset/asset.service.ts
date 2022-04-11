@@ -8,10 +8,7 @@ export class AssetService {
   constructor(private assetRepository: AssetRepository) {}
 
   async newAsset(asset: AssetRequestDTO): Promise<asset> {
-    const name = await this.assetRepository.findBy(
-      'abbreviation',
-      asset.abbreviation,
-    );
+    const name = await this.assetRepository.findBy('abbreviation', asset.abbreviation);
     const abbreviation = await this.assetRepository.findBy('name', asset.name);
 
     if (name || abbreviation) {
@@ -24,10 +21,7 @@ export class AssetService {
   async findById(id: string): Promise<asset> {
     const asset = await this.assetRepository.findById(id);
     if (!asset) {
-      throw new HttpException(
-        `Nao existe nenhum ativo com o id: ${id}`,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException(`Nao existe nenhum ativo com o id: ${id}`, HttpStatus.NOT_FOUND);
     }
 
     return asset;

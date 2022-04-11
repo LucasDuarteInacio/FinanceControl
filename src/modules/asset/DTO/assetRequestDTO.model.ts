@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
-
 export class AssetRequestDTO {
   @IsNotEmpty({ message: 'Campo nome nao pode ser vazio' })
   @ApiProperty({

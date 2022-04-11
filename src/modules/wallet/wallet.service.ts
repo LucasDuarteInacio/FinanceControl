@@ -14,10 +14,7 @@ export class WalletService {
   async findById(id: string): Promise<wallet> {
     const wallet = await this.walletRepository.findById(id);
     if (!wallet) {
-      throw new HttpException(
-        `Nao existe nenhuma carteira com o id: ${id}`,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException(`Nao existe nenhuma carteira com o id: ${id}`, HttpStatus.NOT_FOUND);
     }
 
     return wallet;

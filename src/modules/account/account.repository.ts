@@ -15,10 +15,19 @@ export class AccountRepository {
     });
   }
 
-  async findByCpf(cpf: string): Promise<account> {
-    return this.prisma.account.findUnique({
+  async update(data): Promise<account> {
+    return this.prisma.account.update({
       where: {
-        cpf,
+        accountid: data.accountid,
+      },
+      data: data,
+    });
+  }
+
+  async delete(accountid): Promise<account> {
+    return this.prisma.account.delete({
+      where: {
+        accountid,
       },
     });
   }

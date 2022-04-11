@@ -59,17 +59,7 @@ export class OperationRequestDTO {
   })
   currency: string;
 
-  constructor(
-    walletid,
-    assetid,
-    quantity,
-    tax,
-    price,
-    type,
-    value,
-    investmentbroker,
-    currency,
-  ) {
+  constructor(walletid, assetid, quantity, tax, price, type, value, investmentbroker, currency) {
     this.walletid = walletid;
     this.assetid = assetid;
     this.quantity = quantity;
