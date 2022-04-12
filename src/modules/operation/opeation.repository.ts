@@ -13,4 +13,37 @@ export class OpeationRepository {
       data: data,
     });
   }
+
+  async update(data): Promise<operation> {
+    return this.prisma.operation.update({
+      where: {
+        operationid: data.operationid,
+      },
+      data: data,
+    });
+  }
+
+  async findById(operationid: string): Promise<operation> {
+    return this.prisma.operation.findUnique({
+      where: {
+        operationid,
+      },
+    });
+  }
+
+  async findAllByWallet(walletid: string): Promise<operation[]> {
+    return this.prisma.operation.findMany({
+      where: {
+        walletid,
+      },
+    });
+  }
+
+  async delete(operationid): Promise<operation> {
+    return this.prisma.operation.delete({
+      where: {
+        operationid,
+      },
+    });
+  }
 }

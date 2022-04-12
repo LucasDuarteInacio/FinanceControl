@@ -10,11 +10,28 @@ import { operation } from '@prisma/client';
 export class OperationService {
   constructor(private operationRepository: OpeationRepository, private walletService: WalletService, private assetService: AssetService) {}
 
-  async newOperation(operation): Promise<operation> {
+  async save(operation): Promise<operation> {
+    await this.walletService.findById(operation.walletid);
     await this.validateOperation(operation);
-    operation.date = new Date();
-    await this.operationRepository.save(operation);
-    return operation;
+    return this.operationRepository.save(operation);
+  }
+
+  async update(operation, operationId): Promise<operation> {
+    await this.validateOperation(operation);
+    const operationExists = await this.findById(operationId);
+    operation.walletid = operationExists.walletid;
+    operation.operationid = operationId;
+    return this.operationRepository.update(operation);
+  }
+
+  async findAllByWalletId(walletId): Promise<operation[]> {
+    await this.walletService.findById(walletId);
+    return this.operationRepository.findAllByWallet(walletId);
+  }
+
+  async delete(operationId): Promise<operation> {
+    await this.findById(operationId);
+    return this.operationRepository.delete(operationId);
   }
 
   async validateOperation(operation): Promise<void> {
@@ -25,8 +42,14 @@ export class OperationService {
     if (!currencyEnumArray.includes(operation.currency)) {
       throw new HttpException(`Nao foi econtrada nenhuma moeda chamada: ${operation.currency}`, HttpStatus.NOT_FOUND);
     }
-
-    await this.walletService.findById(operation.walletid);
     await this.assetService.findById(operation.assetid);
+  }
+
+  async findById(id: string): Promise<operation> {
+    const account = await this.operationRepository.findById(id);
+    if (!account) {
+      throw new HttpException(`Nao existe nenhuma operação com esse id`, HttpStatus.NOT_FOUND);
+    }
+    return account;
   }
 }

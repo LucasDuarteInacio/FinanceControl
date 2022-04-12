@@ -3,14 +3,7 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 import { currencyEnumArray } from '../enum/currency.enum';
 import { typeEnumArray } from '../enum/type.enum';
 
-export class OperationRequestDTO {
-  @IsNotEmpty({ message: 'Campo idCarteira nao pode ser vazio' })
-  @ApiProperty({
-    example: '7696d3e0-5b6d-45e3-a59f-d11d82342412',
-    description: 'Id da carteira',
-  })
-  walletid: string;
-
+export class OperationUpdateDTO {
   @IsNotEmpty({ message: 'Campo idAtivo nao pode ser vazio' })
   @ApiProperty({
     example: '3cee7bc0-0c11-4c0c-b28b-3d14778c439c',
@@ -20,19 +13,12 @@ export class OperationRequestDTO {
 
   @IsNumber({}, { message: 'Formato quantidade incorreto' })
   @IsNotEmpty({ message: 'Campo quantidade nao pode ser vazio' })
-  @ApiProperty({ example: '10', description: 'quantity' })
+  @ApiProperty({ example: '10', description: 'quantidade' })
   quantity: number;
-
-  @IsNotEmpty({ message: 'Data da operação nao pode ser vazia' })
-  @ApiProperty({
-    example: '2022-04-14T00:00:00.000Z',
-    description: 'Date Operation',
-  })
-  date: Date;
 
   @IsNumber({}, { message: 'Formato taxa incorreto' })
   @IsNotEmpty({ message: 'Campo taxa nao pode ser vazio' })
-  @ApiProperty({ example: '9.77', description: 'tax' })
+  @ApiProperty({ example: '9.77', description: 'taxa' })
   tax: number;
 
   @IsNumber({}, { message: 'Formato preço incorreto' })
@@ -65,8 +51,7 @@ export class OperationRequestDTO {
   })
   currency: string;
 
-  constructor(walletid, assetid, quantity, date, tax, price, type, value, investmentbroker, currency) {
-    this.walletid = walletid;
+  constructor(assetid, quantity, tax, price, type, value, investmentbroker, currency) {
     this.assetid = assetid;
     this.quantity = quantity;
     this.price = price;
@@ -75,6 +60,5 @@ export class OperationRequestDTO {
     this.investmentbroker = investmentbroker;
     this.currency = currency;
     this.tax = tax;
-    this.date = date;
   }
 }

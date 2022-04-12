@@ -63,9 +63,9 @@ $ npm run test:cov
 
 - Operações
   - Realizar operações
-  - Editar operações*
-  - Deletar operações*
-  - Listar operações*
+  - Editar operações
+  - Deletar operações
+  - Listar operações
 - Dashboard
   - Graficos*
     - Ativo*
