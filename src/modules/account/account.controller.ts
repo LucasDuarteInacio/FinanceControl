@@ -6,7 +6,7 @@ import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
 import { AccountService } from './account.service';
 import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
 
-@ApiTags('AccountS')
+@ApiTags('Accounts')
 @Controller('accounts')
 export class AccountController {
   constructor(private accountService: AccountService) {}

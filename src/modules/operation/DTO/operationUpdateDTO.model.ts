@@ -7,46 +7,46 @@ export class OperationUpdateDTO {
   @IsNotEmpty({ message: 'Campo idAtivo nao pode ser vazio' })
   @ApiProperty({
     example: '3cee7bc0-0c11-4c0c-b28b-3d14778c439c',
-    description: 'Id do ativo',
+    description: 'Asset ID',
   })
   assetid: string;
 
   @IsNumber({}, { message: 'Formato quantidade incorreto' })
-  @IsNotEmpty({ message: 'Campo quantidade nao pode ser vazio' })
-  @ApiProperty({ example: '10', description: 'quantidade' })
+  @IsNotEmpty({ message: 'Campo quantidade não pode ser vazio' })
+  @ApiProperty({ example: '10', description: 'Quantity' })
   quantity: number;
 
   @IsNumber({}, { message: 'Formato taxa incorreto' })
-  @IsNotEmpty({ message: 'Campo taxa nao pode ser vazio' })
-  @ApiProperty({ example: '9.77', description: 'taxa' })
+  @IsNotEmpty({ message: 'Campo taxa não pode ser vazio' })
+  @ApiProperty({ example: '9.77', description: 'Tax' })
   tax: number;
 
   @IsNumber({}, { message: 'Formato preço incorreto' })
-  @IsNotEmpty({ message: 'Campo preço nao pode ser vazio' })
-  @ApiProperty({ example: '12.15', description: 'preço' })
+  @IsNotEmpty({ message: 'Campo preço não pode ser vazio' })
+  @ApiProperty({ example: '12.15', description: 'Price' })
   price: number;
 
-  @IsNotEmpty({ message: 'Campo tipo nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo tipo não pode ser vazio' })
   @ApiProperty({
     example: 'Compra',
-    description: 'Tipo de operação',
+    description: 'Operation type',
     enum: typeEnumArray,
   })
   type: string;
 
   @IsNumber({}, { message: 'Formato valor incorreto' })
-  @IsNotEmpty({ message: 'Campo valor nao pode ser vazio' })
-  @ApiProperty({ example: '121.50', description: 'Valor do ativo' })
+  @IsNotEmpty({ message: 'Campo valor não pode ser vazio' })
+  @ApiProperty({ example: '121.50', description: 'Asset value' })
   value: number;
 
-  @IsNotEmpty({ message: 'Campo corretora nao pode ser vazio' })
-  @ApiProperty({ example: 'Modal Mais', description: 'Corretora' })
+  @IsNotEmpty({ message: 'Campo corretora não pode ser vazio' })
+  @ApiProperty({ example: 'Modal Mais', description: 'Investmentbroker name' })
   investmentbroker: string;
 
-  @IsNotEmpty({ message: 'Campo moeda nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo moeda não pode ser vazio' })
   @ApiProperty({
     example: 'BRL',
-    description: 'ISO 4217 da moeda usada na operação',
+    description: 'ISO 4217 of the currency used in the transaction',
     enum: currencyEnumArray,
   })
   currency: string;

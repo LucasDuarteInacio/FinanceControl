@@ -33,7 +33,6 @@ export class AssetService {
     if (!asset) {
       throw new HttpException(`Nao existe nenhum ativo com o id: ${id}`, HttpStatus.NOT_FOUND);
     }
-
     return asset;
   }
 

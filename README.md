@@ -67,10 +67,10 @@ $ npm run test:cov
   - Deletar operações
   - Listar operações
 - Dashboard
-  - Graficos*
-    - Ativo*
-    - Setor*
-    - Subsetor*
+  - Graficos
+    - Ativo
+    - Setor
+    - Subsetor
     - Corretora*
   - Evolução patrimonial*
 

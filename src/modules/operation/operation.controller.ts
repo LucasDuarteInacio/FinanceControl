@@ -19,6 +19,7 @@ export class OperationController {
 
   @Put()
   @ApiOperation({ summary: 'update operation' })
+  @ApiResponse({ status: 404, description: 'operationId does not exist' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   updateOperation(@Body() operation: OperationUpdateDTO, @Query('operationId') operationId: string): Promise<operation> {
     return this.operationService.update(operation, operationId);
@@ -26,7 +27,7 @@ export class OperationController {
 
   @Get('wallet/:walletId')
   @ApiOperation({ summary: 'get operations by walletId' })
-  @ApiResponse({ status: 404, description: 'Wallet not found' })
+  @ApiResponse({ status: 404, description: 'walletId does not exist' })
   findAllByWalletId(@Param('walletId') walletId: string): Promise<operation[]> {
     return this.operationService.findAllByWalletId(walletId);
   }

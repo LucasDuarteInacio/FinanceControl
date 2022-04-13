@@ -2,15 +2,15 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
 export class AccountUpdateDTO {
-  @IsNotEmpty({ message: 'Campo nome nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo nome não pode ser vazio' })
   @ApiProperty({ example: 'Lucas', description: 'First username' })
   firstname: string;
 
-  @IsNotEmpty({ message: 'Campo sobrenome nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo sobrenome não pode ser vazio' })
   @ApiProperty({ example: 'Duarte', description: 'Last username' })
   lastname: string;
 
-  @IsNotEmpty({ message: 'Campo data aniversario nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo data aniversario não pode ser vazio' })
   @ApiProperty({
     example: '2022-04-14T00:00:00.000Z',
     description: 'Account birthday',

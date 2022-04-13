@@ -2,31 +2,31 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class AccountRequestDTO {
-  @IsNotEmpty({ message: 'Campo nome nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo nome não pode ser vazio' })
   @ApiProperty({ example: 'Lucas', description: 'First username' })
   firstname: string;
 
-  @IsNotEmpty({ message: 'Campo sobrenome nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo sobrenome não pode ser vazio' })
   @ApiProperty({ example: 'Duarte', description: 'Last username' })
   lastname: string;
 
   @IsEmail({}, { message: 'Formato email incorreto' })
-  @IsNotEmpty({ message: 'Campo email nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo email não pode ser vazio' })
   @ApiProperty({
     example: 'lucasduarte@email.com',
     description: 'Account email',
   })
   email: string;
 
-  @IsNotEmpty({ message: 'Campo Telefone nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo Telefone não pode ser vazio' })
   @ApiProperty({ example: '31999999999', description: 'Account cell phone' })
   cellphone: string;
 
-  @IsNotEmpty({ message: 'Campo senha nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo senha não pode ser vazio' })
   @ApiProperty({ example: 'password', description: 'Account password' })
   password: string;
 
-  @IsNotEmpty({ message: 'Campo data aniversario nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo data aniversario não pode ser vazio' })
   @ApiProperty({
     example: '2022-04-14T00:00:00.000Z',
     description: 'Account birthday',
@@ -48,7 +48,7 @@ export class AccountRequestDTO {
   @ApiProperty({ example: 'Minas Gerais', description: 'Account state' })
   state: string;
 
-  @IsNotEmpty({ message: 'Campo cpf nao pode ser vazio' })
+  @IsNotEmpty({ message: 'Campo cpf não pode ser vazio' })
   @ApiProperty({ example: '37271448071', description: 'Account cpf' })
   cpf: string;
 

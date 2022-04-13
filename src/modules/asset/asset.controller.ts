@@ -33,15 +33,16 @@ export class AssetController {
   }
 
   @Put()
-  @ApiOperation({ summary: 'Update account' })
+  @ApiOperation({ summary: 'Update asset' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
+  @ApiResponse({ status: 404, description: 'assetId does not exist' })
   updateAsset(@Body() asset: AssetRequestDTO, @Query('assetId') assetId: string): Promise<asset> {
     return this.assetService.updateAsset(assetId, asset);
   }
 
   @Delete()
-  @ApiOperation({ summary: 'Delete account' })
-  @ApiResponse({ status: 404, description: 'accountId does not exist' })
+  @ApiOperation({ summary: 'Delete asset' })
+  @ApiResponse({ status: 404, description: 'assetId does not exist' })
   deleteAsset(@Query('assetId') assetId: string): Promise<asset> {
     return this.assetService.deleteAsset(assetId);
   }
