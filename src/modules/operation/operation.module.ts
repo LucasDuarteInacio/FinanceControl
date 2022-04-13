@@ -8,6 +8,7 @@ import { AssetModule } from '../asset/asset.module';
 @Module({
   controllers: [OperationController],
   providers: [OperationService, OpeationRepository],
+  exports: [OperationService, OpeationRepository],
   imports: [WalletModule, AssetModule],
 })
 export class OperationModule {}

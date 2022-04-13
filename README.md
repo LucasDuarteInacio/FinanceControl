@@ -71,7 +71,6 @@ $ npm run test:cov
     - Ativo*
     - Setor*
     - Subsetor*
-    - Classe*
     - Corretora*
   - Evolução patrimonial*
 
