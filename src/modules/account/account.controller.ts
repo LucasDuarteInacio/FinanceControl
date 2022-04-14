@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { account } from '@prisma/client';
-import { ValidCpf } from 'src/Decorators/validCpf.decorator';
+import { ValidCpf } from 'src/decorators/validCpf.decorator';
 import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
 import { AccountService } from './account.service';
 import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @ApiTags('Accounts')
 @Controller('accounts')
@@ -22,6 +23,7 @@ export class AccountController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Search all database accounts' })
   findAll(): Promise<account[]> {
     return this.accountService.findAll();

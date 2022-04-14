@@ -7,6 +7,14 @@ import { v4 as uuidv4 } from 'uuid';
 export class AccountRepository {
   constructor(private prisma: PrismaService) {}
 
+  async findByEmail(email: string): Promise<account> {
+    return this.prisma.account.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+
   async findById(accountid: string): Promise<account> {
     return this.prisma.account.findUnique({
       where: {

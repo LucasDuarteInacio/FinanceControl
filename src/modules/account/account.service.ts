@@ -9,6 +9,14 @@ import { AccountRepository } from './account.repository';
 export class AccountService {
   constructor(private accountRepository: AccountRepository, private walletService: WalletService) {}
 
+  async findByEmail(email: string): Promise<account | undefined> {
+    const account = await this.accountRepository.findByEmail(email);
+    if (!account) {
+      throw new HttpException(`Nao existe nenhuma conta esse email`, HttpStatus.NOT_FOUND);
+    }
+    return account;
+  }
+
   async findById(id: string): Promise<account> {
     const account = await this.accountRepository.findById(id);
     if (!account) {
