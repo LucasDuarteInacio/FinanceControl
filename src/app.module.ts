@@ -5,7 +5,7 @@ import { WalletModule } from './modules/wallet/wallet.module';
 import { PrismaService } from './shared/prisma.service';
 import { OperationModule } from './modules/operation/operation.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Global()
 @Module({

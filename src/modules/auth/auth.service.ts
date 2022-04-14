@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { AccountService } from '../modules/account/account.service';
+
 import { JwtService } from '@nestjs/jwt';
-import { account } from '@prisma/client';
+import { AccountService } from '../account/account.service';
 
 @Injectable()
 export class AuthService {
@@ -10,14 +10,14 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const account = await this.accountService.findByEmail(email);
     if (account && account.password === pass) {
-      const { password, ...result } = account;
-      return result;
+      return account;
     }
     return null;
   }
 
-  async login(user: account) {
-    const payload = { firstname: user.firstname, lastname: user.lastname, email: user.email, sub: user.accountid };
+  async login(user) {
+    const account = await this.accountService.findByEmail(user.email);
+    const payload = { firstname: account.firstname, lastname: account.lastname, email: account.email, sub: account.accountid };
     return {
       access_token: this.jwtService.sign(payload),
     };

@@ -5,7 +5,7 @@ import { ValidCpf } from 'src/decorators/validCpf.decorator';
 import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
 import { AccountService } from './account.service';
 import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Accounts')
 @Controller('accounts')
