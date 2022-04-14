@@ -5,7 +5,10 @@ import { ValidCpf } from 'src/decorators/validCpf.decorator';
 import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
 import { AccountService } from './account.service';
 import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Roles } from '../../decorators/roles.decorator';
+import { Role } from '../../role.enum';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
+import { RolesGuard } from '../../guards/roles.guard';
 
 @ApiTags('Accounts')
 @Controller('accounts')
@@ -23,7 +26,8 @@ export class AccountController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.User)
   @ApiOperation({ summary: 'Search all database accounts' })
   findAll(): Promise<account[]> {
     return this.accountService.findAll();

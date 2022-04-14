@@ -17,7 +17,7 @@ export class AuthService {
 
   async login(user) {
     const account = await this.accountService.findByEmail(user.email);
-    const payload = { firstname: account.firstname, lastname: account.lastname, email: account.email, sub: account.accountid };
+    const payload = { firstname: account.firstname, lastname: account.lastname, email: account.email, sub: account.accountid, roles: ['admin'] };
     return {
       access_token: this.jwtService.sign(payload),
     };
