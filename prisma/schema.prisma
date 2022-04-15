@@ -7,6 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model account {
+  accountid  String   @id @db.Uuid
+  role       String   @db.VarChar(50)
+  firstname  String   @db.VarChar(50)
+  lastname   String   @db.VarChar(50)
+  email      String   @unique @db.VarChar(50)
+  cellphone  String   @unique(map: "accoun_cellphone_key") @db.VarChar(15)
+  password   String   @db.VarChar(50)
+  birthdate  DateTime @db.Date
+  address    String   @db.VarChar(50)
+  city       String   @db.VarChar(50)
+  postalcode String   @db.VarChar(50)
+  country    String   @db.VarChar(50)
+  state      String   @db.VarChar(50)
+  cpf        String   @unique(map: "accoun_cpf_key") @db.VarChar(15)
+  wallet     wallet[]
+}
+
 model asset {
   assetid      String      @id @db.Uuid
   name         String      @unique @db.VarChar(50)
@@ -40,21 +58,4 @@ model wallet {
   totalearnings   Float
   account         account     @relation(fields: [accountid], references: [accountid], onDelete: Cascade)
   operation       operation[]
-}
-
-model account {
-  accountid  String   @id @db.Uuid
-  firstname  String   @db.VarChar(50)
-  lastname   String   @db.VarChar(50)
-  email      String   @unique @db.VarChar(50)
-  cellphone  String   @unique(map: "accoun_cellphone_key") @db.VarChar(15)
-  password   String   @db.VarChar(50)
-  birthdate  DateTime @db.Date
-  address    String   @db.VarChar(50)
-  city       String   @db.VarChar(50)
-  postalcode String   @db.VarChar(50)
-  country    String   @db.VarChar(50)
-  state      String   @db.VarChar(50)
-  cpf        String   @unique(map: "accoun_cpf_key") @db.VarChar(15)
-  wallet     wallet[]
 }

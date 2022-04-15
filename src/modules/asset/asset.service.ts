@@ -8,8 +8,8 @@ export class AssetService {
   constructor(private assetRepository: AssetRepository) {}
 
   async newAsset(asset: AssetRequestDTO): Promise<asset> {
-    const name = await this.assetRepository.findBy('abbreviation', asset.abbreviation);
-    const abbreviation = await this.assetRepository.findBy('name', asset.name);
+    const abbreviation = await this.assetRepository.findBy('abbreviation', asset.abbreviation);
+    const name = await this.assetRepository.findBy('name', asset.name);
 
     if (name || abbreviation) {
       throw new HttpException(`Ativo ja existe`, HttpStatus.CONFLICT);
