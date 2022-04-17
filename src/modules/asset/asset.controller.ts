@@ -1,12 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { asset } from '@prisma/client';
 import { AssetService } from './asset.service';
 import { AssetRequestDTO } from './DTO/assetRequestDTO.model';
-import { Roles } from "../../decorators/roles.decorator";
-import { RolesEnum } from "../auth/enum/roles.enum";
-import { JwtAuthGuard } from "../../guards/jwt-auth.guard";
-import { RolesGuard } from "../../guards/roles.guard";
+import { Roles } from '../../decorators/roles.decorator';
+import { RolesEnum } from '../auth/enum/roles.enum';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
+import { RolesGuard } from '../../guards/roles.guard';
 
 @ApiTags('Assets')
 @Controller('assets')
@@ -62,7 +62,7 @@ export class AssetController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Delete asset' })
   @ApiResponse({ status: 404, description: 'assetId does not exist' })
-  deleteAsset(@Query('assetId') assetId: string): Promise<asset> {
-    return this.assetService.deleteAsset(assetId);
+  async deleteAsset(@Query('assetId') assetId: string): Promise<void> {
+    await this.assetService.deleteAsset(assetId);
   }
 }

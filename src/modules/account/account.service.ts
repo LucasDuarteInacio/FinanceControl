@@ -4,6 +4,7 @@ import { WalletRequestDTO } from '../wallet/DTO/walletRequestDTO.model';
 import { WalletService } from '../wallet/wallet.service';
 import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
 import { AccountRepository } from './account.repository';
+import { AccountDTO } from './DTO/accountDTO.model';
 
 @Injectable()
 export class AccountService {
@@ -17,7 +18,7 @@ export class AccountService {
     return account;
   }
 
-  async findById(id: string): Promise<account> {
+  async findById(id: string): Promise<AccountDTO> {
     const account = await this.accountRepository.findById(id);
     if (!account) {
       throw new HttpException(`Nao existe nenhuma conta esse id`, HttpStatus.NOT_FOUND);
@@ -37,12 +38,7 @@ export class AccountService {
   }
 
   async findAll(): Promise<any[]> {
-    const accounts = await this.accountRepository.findAll();
-    await accounts.forEach((account) => {
-      account.wallet = this.walletService.findByAccountId(account.accountid);
-    });
-
-    return accounts;
+    return await this.accountRepository.findAll();
   }
 
   async newAccount(account: AccountRequestDTO): Promise<account> {

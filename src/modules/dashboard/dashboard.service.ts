@@ -9,7 +9,7 @@ export class DashboardService {
 
   async getGraphics(walletId): Promise<any> {
     const operations: Array<operation> = await this.operationService.findAllByWalletId(walletId);
-    const filters = ['name', 'abbreviation', 'sector', 'subsector'];
+    const filters = ['name', 'sector', 'subsector'];
     const graphics = [];
 
     for (const filter of filters) {
