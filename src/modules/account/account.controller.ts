@@ -22,7 +22,7 @@ export class AccountController {
   @ApiOperation({ summary: 'Search account by id' })
   @ApiResponse({
     status: 404,
-    description: 'Did not find account with the informed is',
+    description: 'Did not find account with the informed is!',
   })
   @ApiHeader({
     name: 'x-userid',
