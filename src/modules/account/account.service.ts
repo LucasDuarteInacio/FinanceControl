@@ -36,8 +36,13 @@ export class AccountService {
     return this.accountRepository.delete(accountId);
   }
 
-  async findAll(): Promise<account[]> {
-    return this.accountRepository.findAll();
+  async findAll(): Promise<any[]> {
+    const accounts = await this.accountRepository.findAll();
+    await accounts.forEach((account) => {
+      account.wallet = this.walletService.findByAccountId(account.accountid);
+    });
+
+    return accounts;
   }
 
   async newAccount(account: AccountRequestDTO): Promise<account> {

@@ -4,13 +4,19 @@ import { JwtService } from '@nestjs/jwt';
 import { AccountService } from '../account/account.service';
 import { account } from '@prisma/client';
 
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class AuthService {
   constructor(private accountService: AccountService, private jwtService: JwtService) {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
+  async validateUser(email: string, password: string): Promise<any> {
+    const saltOrRounds = 10;
+    const hash = await bcrypt.hash(password, saltOrRounds);
+    const isMatch = await bcrypt.compare(password, hash);
+
     const account = await this.accountService.findByEmail(email);
-    if (account && account.password === pass) {
+    if (account && isMatch) {
       return account;
     }
     return null;
@@ -26,6 +32,10 @@ export class AuthService {
 
   async register(account): Promise<account> {
     account.role = 'default';
+
+    const saltOrRounds = 10;
+    account.password = await bcrypt.hash(account.password, saltOrRounds);
+
     return this.accountService.newAccount(account);
   }
 }

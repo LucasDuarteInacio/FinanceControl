@@ -31,7 +31,7 @@ export class AccountController {
   @Roles(RolesEnum.Admin)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Search all database accounts' })
-  findAll(): Promise<account[]> {
+ajusts  findAll(): Promise<any[]> {
     return this.accountService.findAll();
   }
 

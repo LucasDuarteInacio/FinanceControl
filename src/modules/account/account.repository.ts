@@ -66,7 +66,7 @@ export class AccountRepository {
     }
   }
 
-  async findAll(): Promise<account[]> {
+  async findAll(): Promise<any[]> {
     return this.prisma.account.findMany();
   }
 

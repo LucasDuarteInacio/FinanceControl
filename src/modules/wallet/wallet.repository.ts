@@ -21,4 +21,13 @@ export class WalletRepository {
       },
     });
   }
+
+
+  async findByAccountId(accountid: string): Promise<wallet> {
+    return this.prisma.wallet.findFirst({
+      where: {
+        accountid,
+      },
+    });
+  }
 }

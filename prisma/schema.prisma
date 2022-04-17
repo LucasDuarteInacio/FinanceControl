@@ -14,7 +14,7 @@ model account {
   lastname   String   @db.VarChar(50)
   email      String   @unique @db.VarChar(50)
   cellphone  String   @unique(map: "accoun_cellphone_key") @db.VarChar(15)
-  password   String   @db.VarChar(50)
+  password   String   @db.VarChar(150)
   birthdate  DateTime @db.Date
   address    String   @db.VarChar(50)
   city       String   @db.VarChar(50)

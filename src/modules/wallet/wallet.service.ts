@@ -19,4 +19,13 @@ export class WalletService {
 
     return wallet;
   }
+
+  async findByAccountId(accountId: string): Promise<wallet> {
+    const wallet = await this.walletRepository.findByAccountId(accountId);
+    if (!wallet) {
+      throw new HttpException(`Nao existe nenhuma carteira com o id: ${accountId}`, HttpStatus.NOT_FOUND);
+    }
+
+    return wallet;
+  }
 }
