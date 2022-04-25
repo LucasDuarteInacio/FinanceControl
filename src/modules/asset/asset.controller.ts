@@ -13,22 +13,22 @@ import { RolesGuard } from '../../guards/roles.guard';
 export class AssetController {
   constructor(private assetService: AssetService) {}
 
-  @Get(':id')
+  @Get(':assetId')
   @ApiBearerAuth()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Search asset by id' })
   @ApiResponse({
     status: 404,
     description: 'Did not find asset with the informed is',
   })
-  findById(@Param('id') id: string): Promise<asset> {
-    return this.assetService.findById(id);
+  findById(@Param('assetId') assetId: string): Promise<asset> {
+    return this.assetService.findById(assetId);
   }
 
   @Get()
   @ApiBearerAuth()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Search all database assets' })
   findAll(): Promise<asset[]> {
@@ -36,8 +36,8 @@ export class AssetController {
   }
 
   @Post()
-  @Roles(RolesEnum.Admin)
   @ApiBearerAuth()
+  @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Register new asset' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
@@ -46,8 +46,8 @@ export class AssetController {
   }
 
   @Put()
-  @Roles(RolesEnum.Admin)
   @ApiBearerAuth()
+  @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Update asset' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
@@ -57,8 +57,8 @@ export class AssetController {
   }
 
   @Delete()
-  @Roles(RolesEnum.Admin)
   @ApiBearerAuth()
+  @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Delete asset' })
   @ApiResponse({ status: 404, description: 'assetId does not exist' })

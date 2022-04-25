@@ -13,7 +13,7 @@ export class DashboardController {
 
   @Get(':walletId')
   @ApiBearerAuth()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'get Graphics' })
   findAll(@Param('walletId') walletId: string): Promise<any> {

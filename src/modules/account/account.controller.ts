@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Put, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Header, HttpCode, Param, Put, Query, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { account } from '@prisma/client';
 import { AccountService } from './account.service';
 import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
@@ -14,22 +14,27 @@ import { AccountDTO } from './DTO/accountDTO.model';
 export class AccountController {
   constructor(private accountService: AccountService) {}
 
-  @Get(':id')
+  @Get(':accountId')
   @ApiBearerAuth()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
+  @Header('x-userid', 'none')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Search account by id' })
   @ApiResponse({
     status: 404,
     description: 'Did not find account with the informed is',
   })
-  findById(@Param('id') id: string): Promise<AccountDTO> {
-    return this.accountService.findById(id);
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  findById(@Param('accountId') accountId: string): Promise<AccountDTO> {
+    return this.accountService.findById(accountId);
   }
 
   @Get()
   @ApiBearerAuth()
-  @Roles(RolesEnum.Admin)
+  @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Search all database accounts' })
   findAll(): Promise<AccountDTO[]> {
@@ -38,7 +43,7 @@ export class AccountController {
 
   @Put()
   @ApiBearerAuth()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Update account' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
@@ -49,7 +54,7 @@ export class AccountController {
   @Delete()
   @HttpCode(204)
   @ApiBearerAuth()
-  @Roles(RolesEnum.Admin)
+  @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Delete account' })
   @ApiResponse({ status: 404, description: 'accountId does not exist' })

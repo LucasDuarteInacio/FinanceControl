@@ -24,7 +24,7 @@ export class OperationController {
   }
 
   @Put()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'update operation' })
   @ApiResponse({ status: 404, description: 'operationId does not exist' })
