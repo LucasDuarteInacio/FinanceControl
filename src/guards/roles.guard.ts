@@ -30,7 +30,7 @@ export class RolesGuard implements CanActivate {
             case 'account':
               paramValid = params.accountId === user.accountId;
               break;
-            case 'wakket':
+            case 'wallet':
               paramValid = params.assetId === user.wallet.walletId;
               break;
           }

@@ -1,5 +1,5 @@
-import {Body, Controller, Delete, Get, Header, Param, Post, Put, Query, UseGuards} from '@nestjs/common';
-import {ApiBearerAuth, ApiHeader, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Header, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { asset } from '@prisma/client';
 import { AssetService } from './asset.service';
 import { AssetRequestDTO } from './DTO/assetRequestDTO.model';
