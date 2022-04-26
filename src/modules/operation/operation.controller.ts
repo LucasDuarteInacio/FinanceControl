@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {Body, Controller, Delete, Get, Header, HttpCode, Param, Post, Put, Query, UseGuards} from '@nestjs/common';
+import {ApiBearerAuth, ApiHeader, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
 import { OperationService } from './operation.service';
 import { OperationRequestDTO } from './DTO/operationRequestDTO.model';
 import { operation } from '@prisma/client';
@@ -15,8 +15,13 @@ export class OperationController {
   constructor(private operationService: OperationService) {}
 
   @Post()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Register new operation' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   newOperation(@Body() operation: OperationRequestDTO): Promise<operation> {
@@ -26,6 +31,11 @@ export class OperationController {
   @Put()
   @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'update operation' })
   @ApiResponse({ status: 404, description: 'operationId does not exist' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
@@ -35,8 +45,13 @@ export class OperationController {
 
   @Get('wallet/:walletId')
   @ApiBearerAuth()
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'get operations by walletId' })
   @ApiResponse({ status: 404, description: 'walletId does not exist' })
   findAllByWalletId(@Param('walletId') walletId: string): Promise<operation[]> {
@@ -46,8 +61,13 @@ export class OperationController {
   @Delete()
   @ApiBearerAuth()
   @HttpCode(204)
-  @Roles(RolesEnum.Default, RolesEnum.Admin)
+  @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Delete operation' })
   @ApiResponse({ status: 404, description: 'operationId does not exist' })
   async deleteOperation(@Query('operationId') operationId: string): Promise<void> {

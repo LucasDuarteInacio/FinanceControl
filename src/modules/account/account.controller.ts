@@ -28,6 +28,7 @@ export class AccountController {
     name: 'x-userid',
     description: 'validate userId',
   })
+  @Header('x-userid', 'none')
   findById(@Param('accountId') accountId: string): Promise<AccountDTO> {
     return this.accountService.findById(accountId);
   }
@@ -35,6 +36,11 @@ export class AccountController {
   @Get()
   @ApiBearerAuth()
   @Roles()
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Search all database accounts' })
   findAll(): Promise<AccountDTO[]> {
@@ -45,6 +51,11 @@ export class AccountController {
   @ApiBearerAuth()
   @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Update account' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   updateAccount(@Body() account: AccountUpdateDTO, @Query('accountId') accountId: string): Promise<account> {
@@ -56,6 +67,11 @@ export class AccountController {
   @ApiBearerAuth()
   @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Delete account' })
   @ApiResponse({ status: 404, description: 'accountId does not exist' })
   async deleteAccount(@Query('accountId') accountId: string): Promise<void> {

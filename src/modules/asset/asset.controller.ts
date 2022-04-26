@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {Body, Controller, Delete, Get, Header, Param, Post, Put, Query, UseGuards} from '@nestjs/common';
+import {ApiBearerAuth, ApiHeader, ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
 import { asset } from '@prisma/client';
 import { AssetService } from './asset.service';
 import { AssetRequestDTO } from './DTO/assetRequestDTO.model';
@@ -17,6 +17,11 @@ export class AssetController {
   @ApiBearerAuth()
   @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Search asset by id' })
   @ApiResponse({
     status: 404,
@@ -30,6 +35,11 @@ export class AssetController {
   @ApiBearerAuth()
   @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Search all database assets' })
   findAll(): Promise<asset[]> {
     return this.assetService.findAll();
@@ -39,6 +49,11 @@ export class AssetController {
   @ApiBearerAuth()
   @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Register new asset' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   newAsset(@Body() asset: AssetRequestDTO): Promise<asset> {
@@ -49,6 +64,11 @@ export class AssetController {
   @ApiBearerAuth()
   @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Update asset' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   @ApiResponse({ status: 404, description: 'assetId does not exist' })
@@ -60,6 +80,11 @@ export class AssetController {
   @ApiBearerAuth()
   @Roles()
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiHeader({
+    name: 'x-userid',
+    description: 'validate userId',
+  })
+  @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Delete asset' })
   @ApiResponse({ status: 404, description: 'assetId does not exist' })
   async deleteAsset(@Query('assetId') assetId: string): Promise<void> {

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export class WalletDTO {
-  accountId: uuidv4;
+  walletId: uuidv4;
 
   investmentValue: number;
 
@@ -9,8 +9,8 @@ export class WalletDTO {
 
   totalEarnings: number;
 
-  constructor(accountId, investmentValue, actualValue, totalEarnings) {
-    this.accountId = accountId;
+  constructor(walletId, investmentValue, actualValue, totalEarnings) {
+    this.walletId = walletId;
     this.investmentValue = investmentValue;
     this.actualValue = actualValue;
     this.totalEarnings = totalEarnings;
