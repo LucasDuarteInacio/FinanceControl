@@ -5,7 +5,7 @@ import { LoginDTO } from './DTO/loginDTO';
 import { LocalAuthGuard } from '../../guards/local-auth.guard';
 import { ValidCpf } from '../../decorators/validCpf.decorator';
 import { AccountRequestDTO } from '../account/DTO/accountRequestDTO.model';
-import { account } from '@prisma/client';
+import { AccountDTO } from '../account/DTO/accountDTO.model';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -28,7 +28,7 @@ export class AuthController {
     status: 409,
     description: 'There is already a account with the CPF, CellPhone or Email provided',
   })
-  register(@Body() @ValidCpf() account: AccountRequestDTO): Promise<account> {
+  register(@Body() @ValidCpf() account: AccountRequestDTO): Promise<AccountDTO> {
     return this.authService.register(account);
   }
 }

@@ -4,17 +4,19 @@ import { PrismaService } from 'src/shared/prisma.service';
 import { v4 as uuidv4 } from 'uuid';
 import { AccountDTO } from './DTO/accountDTO.model';
 import { WalletDTO } from '../wallet/DTO/walletDTO.model';
+import { AccountMapper } from './mapper/AccountMapper';
 
 @Injectable()
 export class AccountRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findByEmail(email: string): Promise<account> {
-    return this.prisma.account.findUnique({
+  async findByEmail(email: string): Promise<AccountDTO> {
+    const account = await this.prisma.account.findUnique({
       where: {
         email,
       },
     });
+    return new AccountMapper().toAccountDTO(account);
   }
 
   async findById(accountId: string): Promise<AccountDTO> {
@@ -25,35 +27,24 @@ export class AccountRepository {
     const account = result[0];
 
     const walletDTO: WalletDTO = new WalletDTO(account.walletid, account.investmentvalue, account.actualvalue, account.totalearnings);
-    return new AccountDTO(
-      account.accountid,
-      account.firstname,
-      account.lastname,
-      account.email,
-      account.cellphone,
-      account.password,
-      account.birthdate,
-      account.address,
-      account.city,
-      account.postalcode,
-      account.country,
-      account.state,
-      account.cpf,
-      walletDTO,
-    );
+    const accountDTO: AccountDTO = new AccountMapper().toAccountDTO(account);
+    accountDTO.wallet = walletDTO;
+    return accountDTO;
   }
 
-  async update(data): Promise<account> {
-    return this.prisma.account.update({
+  async update(data): Promise<AccountDTO> {
+    const account = await this.prisma.account.update({
       where: {
         accountid: data.accountid,
       },
       data: data,
     });
+
+    return new AccountMapper().toAccountDTO(account);
   }
 
-  async delete(accountid): Promise<account> {
-    return this.prisma.account.delete({
+  async delete(accountid): Promise<void> {
+    this.prisma.account.delete({
       where: {
         accountid,
       },
@@ -93,31 +84,18 @@ export class AccountRepository {
 
     result.forEach((account) => {
       const walletDTO: WalletDTO = new WalletDTO(account.walletid, account.investmentvalue, account.actualvalue, account.totalearnings);
-      const accountDTO: AccountDTO = new AccountDTO(
-        account.accountid,
-        account.firstname,
-        account.lastname,
-        account.email,
-        account.cellphone,
-        account.password,
-        account.birthdate,
-        account.address,
-        account.city,
-        account.postalcode,
-        account.country,
-        account.state,
-        account.cpf,
-        walletDTO,
-      );
+      const accountDTO: AccountDTO = new AccountMapper().toAccountDTO(account);
+      accountDTO.wallet = walletDTO;
       accounts.push(accountDTO);
     });
     return accounts;
   }
 
-  async save(data: any): Promise<account> {
+  async save(data: any): Promise<AccountDTO> {
     data.accountid = uuidv4();
-    return this.prisma.account.create({
+    const account = await this.prisma.account.create({
       data: data,
     });
+    return new AccountMapper().toAccountDTO(account);
   }
 }

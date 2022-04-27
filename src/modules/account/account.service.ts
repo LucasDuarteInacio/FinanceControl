@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { account } from '@prisma/client';
 import { WalletRequestDTO } from '../wallet/DTO/walletRequestDTO.model';
 import { WalletService } from '../wallet/wallet.service';
 import { AccountRequestDTO } from './DTO/accountRequestDTO.model';
@@ -10,7 +9,7 @@ import { AccountDTO } from './DTO/accountDTO.model';
 export class AccountService {
   constructor(private accountRepository: AccountRepository, private walletService: WalletService) {}
 
-  async findByEmail(email: string): Promise<account | undefined> {
+  async findByEmail(email: string): Promise<AccountDTO> {
     const account = await this.accountRepository.findByEmail(email);
     if (!account) {
       throw new HttpException(`Nao existe nenhuma conta esse email`, HttpStatus.NOT_FOUND);
@@ -26,22 +25,22 @@ export class AccountService {
     return account;
   }
 
-  async updateAccount(accountId, acccount): Promise<account> {
+  async updateAccount(accountId, acccount): Promise<AccountDTO> {
     await this.findById(accountId);
     acccount.accountid = accountId;
     return this.accountRepository.update(acccount);
   }
 
-  async deleteAccount(accountId): Promise<account> {
+  async deleteAccount(accountId): Promise<void> {
     await this.findById(accountId);
-    return this.accountRepository.delete(accountId);
+    await this.accountRepository.delete(accountId);
   }
 
-  async findAll(): Promise<any[]> {
+  async findAll(): Promise<AccountDTO[]> {
     return await this.accountRepository.findAll();
   }
 
-  async newAccount(account: AccountRequestDTO): Promise<account> {
+  async newAccount(account: AccountRequestDTO): Promise<AccountDTO> {
     let accountCreated;
 
     const cpf = await this.accountRepository.findBy('cpf', account.cpf);

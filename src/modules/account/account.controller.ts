@@ -1,6 +1,5 @@
-import { Body, Controller, Delete, Get, Header, HttpCode, Param, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, HttpCode, Param, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { account } from '@prisma/client';
 import { AccountService } from './account.service';
 import { AccountUpdateDTO } from './DTO/accountUpdateDTO.model';
 import { Roles } from '../../decorators/roles.decorator';
@@ -47,7 +46,7 @@ export class AccountController {
     return this.accountService.findAll();
   }
 
-  @Put()
+  @Put(':accountId')
   @ApiBearerAuth()
   @Roles(RolesEnum.Default)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -58,11 +57,11 @@ export class AccountController {
   @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Update account' })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
-  updateAccount(@Body() account: AccountUpdateDTO, @Query('accountId') accountId: string): Promise<account> {
+  updateAccount(@Body() account: AccountUpdateDTO, @Param('accountId') accountId: string): Promise<AccountDTO> {
     return this.accountService.updateAccount(accountId, account);
   }
 
-  @Delete()
+  @Delete(':accountId')
   @HttpCode(204)
   @ApiBearerAuth()
   @Roles()
@@ -74,7 +73,7 @@ export class AccountController {
   @Header('x-userid', 'none')
   @ApiOperation({ summary: 'Delete account' })
   @ApiResponse({ status: 404, description: 'accountId does not exist' })
-  async deleteAccount(@Query('accountId') accountId: string): Promise<void> {
+  async deleteAccount(@Param('accountId') accountId: string): Promise<void> {
     await this.accountService.deleteAccount(accountId);
   }
 }

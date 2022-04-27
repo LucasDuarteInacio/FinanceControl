@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
 import { AccountService } from '../account/account.service';
-import { account } from '@prisma/client';
 
 import * as bcrypt from 'bcrypt';
+import { AccountDTO } from '../account/DTO/accountDTO.model';
 
 @Injectable()
 export class AuthService {
@@ -24,13 +24,13 @@ export class AuthService {
 
   async login(user): Promise<any> {
     const account = await this.accountService.findByEmail(user.email);
-    const payload = { firstname: account.firstname, lastname: account.lastname, email: account.email, sub: account.accountid, roles: [account.role] };
+    const payload = { firstName: account.firstName, lastName: account.lastName, email: account.email, sub: account.accountId, roles: [account.role] };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
 
-  async register(account): Promise<account> {
+  async register(account): Promise<AccountDTO> {
     account.role = 'default';
 
     const saltOrRounds = 10;

@@ -30,7 +30,9 @@ export class AccountDTO {
 
   wallet: WalletDTO;
 
-  constructor(accountId, firstName, lastName, email, cellPhone, password, birthDate, address, city, postalCode, country, state, cpf, wallet) {
+  role: string;
+
+  constructor(accountId, firstName, lastName, email, cellPhone, password, birthDate, address, city, postalCode, country, state, cpf, wallet, role) {
     this.accountId = accountId;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -45,5 +47,6 @@ export class AccountDTO {
     this.state = state;
     this.cpf = cpf;
     this.wallet = wallet;
+    this.role = role;
   }
 }
