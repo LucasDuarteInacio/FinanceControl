@@ -5,10 +5,11 @@ import { AccountService } from '../account/account.service';
 
 import * as bcrypt from 'bcrypt';
 import { AccountDTO } from '../account/DTO/accountDTO.model';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
-  constructor(private accountService: AccountService, private jwtService: JwtService) {}
+  constructor(private accountService: AccountService, private jwtService: JwtService, private mailerService: MailerService) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const saltOrRounds = 10;
@@ -36,6 +37,19 @@ export class AuthService {
     const saltOrRounds = 10;
     account.password = await bcrypt.hash(account.password, saltOrRounds);
 
-    return this.accountService.newAccount(account);
+    const accountCreated: AccountDTO = await this.accountService.newAccount(account);
+
+    const mail = {
+      to: account.email,
+      from: 'noreply@gerenciadordeinvestimentos.com',
+      subject: 'Email de confirmação',
+      template: 'default',
+      context: {
+        title: 'Bem vindo!',
+        subTitle: 'A plataforma de gerenciamento de Investimentos',
+      },
+    };
+    await this.mailerService.sendMail(mail);
+    return accountCreated;
   }
 }
