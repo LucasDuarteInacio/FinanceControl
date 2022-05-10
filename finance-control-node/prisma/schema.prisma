@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model account {
+  accountid  String   @id @db.Uuid
+  role       String   @db.VarChar(50)
+  firstname  String   @db.VarChar(50)
+  lastname   String   @db.VarChar(50)
+  email      String   @unique @db.VarChar(50)
+  cellphone  String   @unique(map: "accoun_cellphone_key") @db.VarChar(15)
+  password   String   @db.VarChar(150)
+  birthdate  DateTime @db.Date
+  address    String   @db.VarChar(50)
+  city       String   @db.VarChar(50)
+  postalcode String   @db.VarChar(50)
+  country    String   @db.VarChar(50)
+  state      String   @db.VarChar(50)
+  cpf        String   @unique(map: "accoun_cpf_key") @db.VarChar(15)
+  wallet     wallet[]
+}
+
+model asset {
+  assetid      String      @id @db.Uuid
+  name         String      @unique @db.VarChar(50)
+  abbreviation String      @unique @db.VarChar(10)
+  sector       String?     @db.VarChar(50)
+  subsector    String?     @db.VarChar(50)
+  operation    operation[]
+}
+
+model operation {
+  operationid      String   @id @db.Uuid
+  walletid         String   @db.Uuid
+  assetid          String   @db.Uuid
+  date             DateTime @db.Date
+  quantity         Float
+  tax              Float
+  price            Float
+  type             String   @db.VarChar(20)
+  value            Float
+  investmentbroker String   @db.VarChar(50)
+  currency         String   @db.VarChar(20)
+  asset            asset    @relation(fields: [assetid], references: [assetid], onDelete: NoAction, onUpdate: NoAction)
+  wallet           wallet   @relation(fields: [walletid], references: [walletid], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model wallet {
+  walletid        String      @id @db.Uuid
+  accountid       String      @db.Uuid
+  investmentvalue Float
+  actualvalue     Float
+  totalearnings   Float
+  account         account     @relation(fields: [accountid], references: [accountid], onDelete: Cascade)
+  operation       operation[]
+}
