@@ -49,7 +49,7 @@ export class AuthService {
         subTitle: 'A plataforma de gerenciamento de Investimentos',
       },
     };
-    await this.mailerService.sendMail(mail);
+    //await this.mailerService.sendMail(mail);
     return accountCreated;
   }
 }
