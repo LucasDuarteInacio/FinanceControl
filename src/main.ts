@@ -17,7 +17,7 @@ async function bootstrap() {
     swaggerOptions: {
       persistAuthorization: true,
     },
-    customSiteTitle: 'My API Docs',
+    customSiteTitle: 'Finance Control Documentation API',
   };
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-doc', app, document, customOptions);

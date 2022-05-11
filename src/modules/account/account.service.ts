@@ -53,7 +53,7 @@ export class AccountService {
 
     try {
       accountCreated = await this.accountRepository.save(account);
-      const wallet = new WalletRequestDTO(0, 0, 0, accountCreated.accountid);
+      const wallet = new WalletRequestDTO(0, 0, 0, accountCreated.accountId);
       await this.walletService.newWallet(wallet);
     } catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);

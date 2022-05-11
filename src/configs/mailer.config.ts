@@ -12,5 +12,5 @@ export const mailerConfig: MailerOptions = {
       layoutsDir: path.resolve(__dirname, '..', 'shared', 'templates'),
     },
   },
-  transport: `smtps://lucasduarteinacio@gmail.com:Gnr3roses@smtp.gmail.com`,
+  transport: `smtps://lucasduarteinacio@gmail.com:GLus4c25.@smtp.gmail.com`,
 };
