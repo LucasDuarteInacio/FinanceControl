@@ -72,10 +72,9 @@ $ npm run test:cov
     - Setor
     - Subsetor
     - Corretora*
-  - Evolução patrimonial*
 
 <!--## Author
 
- [Kamil Myśliwiec](https://kamilmysliwiec.com) -->
+ [name](link) -->
 
 
