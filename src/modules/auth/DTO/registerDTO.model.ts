@@ -3,17 +3,17 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class RegisterDTO {
   @IsNotEmpty({ message: 'Campo nome não pode ser vazio' })
-  @ApiProperty({ example: 'Lucas', description: 'First username' })
+  @ApiProperty({ example: 'Joao', description: 'First username' })
   firstname: string;
 
   @IsNotEmpty({ message: 'Campo sobrenome não pode ser vazio' })
-  @ApiProperty({ example: 'Duarte', description: 'Last username' })
+  @ApiProperty({ example: 'Mineiro', description: 'Last username' })
   lastname: string;
 
   @IsEmail({}, { message: 'Formato email incorreto' })
   @IsNotEmpty({ message: 'Campo email não pode ser vazio' })
   @ApiProperty({
-    example: 'lucasduarte@email.com',
+    example: 'user@email.com',
     description: 'Account email',
   })
   email: string;
